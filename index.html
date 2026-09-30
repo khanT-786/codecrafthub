@@ -1,0 +1,1194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CodeCraftHub: Your Learning Management Platform</title>
+  <style>
+    :root {
+      --primary: #8B5CF6;
+      --primary-dark: #7C3AED;
+      --primary-light: #EDE9FE;
+      --accent: #F59E0B;
+      --accent-light: #FEF3C7;
+      --danger: #EF4444;
+      --danger-light: #FEE2E2;
+      --success: #10B981;
+      --success-light: #D1FAE5;
+      --text: #1F2937;
+      --text-muted: #6B7280;
+      --border: #E5E7EB;
+      --bg: #F9FAFB;
+      --card: #FFFFFF;
+      --shadow: 0 1px 3px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.04);
+      --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.10), 0 4px 10px rgba(0, 0, 0, 0.05);
+      --radius: 12px;
+      --radius-sm: 8px;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+      min-height: 100vh;
+    }
+
+    /* Header */
+    header {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+      color: #fff;
+      padding: 2rem 1.5rem;
+      box-shadow: var(--shadow-lg);
+    }
+
+    .header-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .header-title {
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+    }
+
+    .logo-mark {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.18);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+      font-weight: 700;
+      letter-spacing: -1px;
+      flex-shrink: 0;
+    }
+
+    header h1 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      line-height: 1.2;
+    }
+
+    header p {
+      font-size: 0.9rem;
+      opacity: 0.9;
+      margin-top: 0.15rem;
+    }
+
+    .header-stats {
+      display: flex;
+      gap: 1.5rem;
+    }
+
+    .stat {
+      text-align: center;
+    }
+
+    .stat-value {
+      font-size: 1.4rem;
+      font-weight: 700;
+      line-height: 1;
+    }
+
+    .stat-label {
+      font-size: 0.75rem;
+      opacity: 0.85;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-top: 0.25rem;
+    }
+
+    /* Layout */
+    main {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 1.5rem;
+    }
+
+    .section {
+      background: var(--card);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      margin-bottom: 1.5rem;
+      overflow: hidden;
+    }
+
+    .section-header {
+      padding: 1.1rem 1.5rem;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .section-header h2 {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .section-body {
+      padding: 1.5rem;
+    }
+
+    /* Form */
+    .form-grid {
+      display: grid;
+      grid-template-columns: 2fr 2fr 1fr 1fr auto;
+      gap: 1rem;
+      align-items: end;
+    }
+
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    .field label {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .field label .req {
+      color: var(--danger);
+      margin-left: 2px;
+    }
+
+    input[type="text"],
+    input[type="date"],
+    textarea,
+    select {
+      width: 100%;
+      padding: 0.6rem 0.75rem;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      font-size: 0.9rem;
+      font-family: inherit;
+      color: var(--text);
+      background: #fff;
+      transition: border-color 0.15s, box-shadow 0.15s;
+    }
+
+    input:focus,
+    textarea:focus,
+    select:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.15);
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 42px;
+    }
+
+    .field.invalid input,
+    .field.invalid textarea,
+    .field.invalid select {
+      border-color: var(--danger);
+      box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.12);
+    }
+
+    .field-error {
+      font-size: 0.75rem;
+      color: var(--danger);
+      display: none;
+    }
+
+    .field.invalid .field-error {
+      display: block;
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.4rem;
+      padding: 0.6rem 1.1rem;
+      border: none;
+      border-radius: var(--radius-sm);
+      font-size: 0.875rem;
+      font-weight: 600;
+      font-family: inherit;
+      cursor: pointer;
+      transition: background 0.15s, transform 0.05s, box-shadow 0.15s;
+      white-space: nowrap;
+      text-decoration: none;
+    }
+
+    .btn:active {
+      transform: translateY(1px);
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: #fff;
+    }
+
+    .btn-primary:hover {
+      background: var(--primary-dark);
+      box-shadow: 0 4px 12px rgba(139, 92, 246, 0.3);
+    }
+
+    .btn-accent {
+      background: var(--accent);
+      color: #fff;
+    }
+
+    .btn-accent:hover {
+      background: #D97706;
+    }
+
+    .btn-danger {
+      background: var(--danger);
+      color: #fff;
+    }
+
+    .btn-danger:hover {
+      background: #DC2626;
+    }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--text-muted);
+      border: 1px solid var(--border);
+    }
+
+    .btn-ghost:hover {
+      background: #F3F4F6;
+      color: var(--text);
+    }
+
+    .btn-sm {
+      padding: 0.4rem 0.75rem;
+      font-size: 0.8rem;
+    }
+
+    .btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    /* Toast / messages */
+    #toast-container {
+      position: fixed;
+      top: 1.25rem;
+      right: 1.25rem;
+      z-index: 1000;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+      max-width: 380px;
+    }
+
+    .toast {
+      padding: 0.85rem 1rem;
+      border-radius: var(--radius-sm);
+      box-shadow: var(--shadow-lg);
+      font-size: 0.875rem;
+      font-weight: 500;
+      display: flex;
+      align-items: flex-start;
+      gap: 0.6rem;
+      animation: slideIn 0.25s ease-out;
+      background: #fff;
+      border-left: 4px solid var(--text-muted);
+    }
+
+    .toast.success { border-left-color: var(--success); background: var(--success-light); }
+    .toast.error   { border-left-color: var(--danger);  background: var(--danger-light);  }
+    .toast.info    { border-left-color: var(--primary); background: var(--primary-light); }
+
+    .toast .toast-msg { flex: 1; }
+    .toast .toast-close {
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 1rem;
+      color: inherit;
+      opacity: 0.6;
+      padding: 0;
+      line-height: 1;
+    }
+    .toast .toast-close:hover { opacity: 1; }
+
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateX(20px); }
+      to   { opacity: 1; transform: translateX(0); }
+    }
+
+    .toast.removing {
+      animation: slideOut 0.2s ease-in forwards;
+    }
+
+    @keyframes slideOut {
+      to { opacity: 0; transform: translateX(20px); }
+    }
+
+    /* Loading */
+    .spinner {
+      width: 18px;
+      height: 18px;
+      border: 2px solid rgba(255, 255, 255, 0.4);
+      border-top-color: #fff;
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+      display: inline-block;
+    }
+
+    .spinner-dark {
+      border: 2px solid var(--border);
+      border-top-color: var(--primary);
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    .loading-overlay {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.85rem;
+      padding: 3rem 1rem;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+
+    .loading-overlay .spinner {
+      width: 32px;
+      height: 32px;
+      border-color: var(--border);
+      border-top-color: var(--primary);
+    }
+
+    /* Table */
+    .table-wrap {
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.875rem;
+    }
+
+    thead th {
+      text-align: left;
+      padding: 0.8rem 1rem;
+      background: #F3F4F6;
+      color: var(--text-muted);
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      border-bottom: 1px solid var(--border);
+      white-space: nowrap;
+    }
+
+    tbody td {
+      padding: 0.9rem 1rem;
+      border-bottom: 1px solid var(--border);
+      vertical-align: top;
+    }
+
+    tbody tr:last-child td {
+      border-bottom: none;
+    }
+
+    tbody tr {
+      transition: background 0.12s;
+    }
+
+    tbody tr:hover {
+      background: #FAFAFB;
+    }
+
+    .cell-id {
+      font-weight: 600;
+      color: var(--text-muted);
+      font-variant-numeric: tabular-nums;
+      white-space: nowrap;
+    }
+
+    .cell-name {
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .cell-desc {
+      color: var(--text-muted);
+      max-width: 320px;
+      line-height: 1.45;
+    }
+
+    .cell-date {
+      white-space: nowrap;
+      color: var(--text);
+    }
+
+    .cell-created {
+      white-space: nowrap;
+      color: var(--text-muted);
+      font-size: 0.8rem;
+    }
+
+    .actions {
+      display: flex;
+      gap: 0.4rem;
+      white-space: nowrap;
+    }
+
+    /* Status badge */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      padding: 0.25rem 0.65rem;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    .badge::before {
+      content: "";
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: currentColor;
+    }
+
+    .badge.not-started { background: #F3F4F6; color: #6B7280; }
+    .badge.in-progress  { background: var(--accent-light); color: #B45309; }
+    .badge.completed    { background: var(--success-light); color: #047857; }
+
+    /* Empty state */
+    .empty-state {
+      text-align: center;
+      padding: 3rem 1rem;
+      color: var(--text-muted);
+    }
+
+    .empty-state .empty-icon {
+      font-size: 2.5rem;
+      margin-bottom: 0.75rem;
+      opacity: 0.5;
+    }
+
+    .empty-state h3 {
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 0.3rem;
+    }
+
+    .empty-state p {
+      font-size: 0.9rem;
+    }
+
+    /* Modal */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(17, 24, 39, 0.5);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 900;
+      padding: 1rem;
+      animation: fadeIn 0.15s ease-out;
+    }
+
+    .modal-overlay.active {
+      display: flex;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+
+    .modal {
+      background: #fff;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-lg);
+      width: 100%;
+      max-width: 540px;
+      max-height: 90vh;
+      overflow-y: auto;
+      animation: modalUp 0.2s ease-out;
+    }
+
+    @keyframes modalUp {
+      from { opacity: 0; transform: translateY(12px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .modal-header {
+      padding: 1.1rem 1.5rem;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .modal-header h3 {
+      font-size: 1.1rem;
+      font-weight: 600;
+    }
+
+    .modal-close {
+      background: none;
+      border: none;
+      font-size: 1.4rem;
+      cursor: pointer;
+      color: var(--text-muted);
+      line-height: 1;
+      padding: 0;
+      width: 28px;
+      height: 28px;
+      border-radius: 6px;
+    }
+
+    .modal-close:hover {
+      background: #F3F4F6;
+      color: var(--text);
+    }
+
+    .modal-body {
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .modal-footer {
+      padding: 1rem 1.5rem;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: flex-end;
+      gap: 0.6rem;
+    }
+
+    .readonly-id {
+      background: #F3F4F6;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+
+    .form-row-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      .form-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+      .form-grid .field-description { grid-column: 1 / -1; }
+      .form-grid .form-actions { grid-column: 1 / -1; }
+      .form-grid .form-actions .btn { width: 100%; }
+    }
+
+    @media (max-width: 640px) {
+      header { padding: 1.5rem 1rem; }
+      header h1 { font-size: 1.2rem; }
+      .header-stats { width: 100%; justify-content: space-between; }
+      main { padding: 1rem; }
+      .section-body { padding: 1rem; }
+      .form-grid { grid-template-columns: 1fr; }
+      .form-row-2 { grid-template-columns: 1fr; }
+      .cell-desc { max-width: none; }
+      #toast-container { left: 1rem; right: 1rem; max-width: none; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-inner">
+      <div class="header-title">
+        <div class="logo-mark">C</div>
+        <div>
+          <h1>CodeCraftHub</h1>
+          <p>Your Learning Management Platform</p>
+        </div>
+      </div>
+      <div class="header-stats" id="header-stats">
+        <div class="stat">
+          <div class="stat-value" id="stat-total">0</div>
+          <div class="stat-label">Total</div>
+        </div>
+        <div class="stat">
+          <div class="stat-value" id="stat-progress">0</div>
+          <div class="stat-label">In Progress</div>
+        </div>
+        <div class="stat">
+          <div class="stat-value" id="stat-completed">0</div>
+          <div class="stat-label">Completed</div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- Add Course Form -->
+    <section class="section" id="add-section">
+      <div class="section-header">
+        <h2>Add a New Course</h2>
+      </div>
+      <div class="section-body">
+        <form id="add-form" novalidate>
+          <div class="form-grid">
+            <div class="field">
+              <label for="add-name">Course Name <span class="req">*</span></label>
+              <input type="text" id="add-name" name="name" placeholder="e.g. Python Basics" />
+              <span class="field-error">Course name is required.</span>
+            </div>
+            <div class="field field-description">
+              <label for="add-description">Description <span class="req">*</span></label>
+              <textarea id="add-description" name="description" rows="1" placeholder="Short description of the course"></textarea>
+              <span class="field-error">Description is required.</span>
+            </div>
+            <div class="field">
+              <label for="add-target_date">Target Date <span class="req">*</span></label>
+              <input type="date" id="add-target_date" name="target_date" />
+              <span class="field-error">Target date is required.</span>
+            </div>
+            <div class="field">
+              <label for="add-status">Status <span class="req">*</span></label>
+              <select id="add-status" name="status">
+                <option value="Not Started">Not Started</option>
+                <option value="In Progress">In Progress</option>
+                <option value="Completed">Completed</option>
+              </select>
+              <span class="field-error">Status is required.</span>
+            </div>
+            <div class="form-actions">
+              <button type="submit" class="btn btn-primary" id="add-submit">
+                <span id="add-submit-text">Add Course</span>
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <!-- Course List -->
+    <section class="section">
+      <div class="section-header">
+        <h2>Your Courses</h2>
+        <button class="btn btn-ghost btn-sm" id="refresh-btn">Refresh</button>
+      </div>
+      <div class="section-body" style="padding: 0;">
+        <div id="course-list-container">
+          <div class="loading-overlay">
+            <div class="spinner"></div>
+            <span>Loading courses...</span>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Edit Modal -->
+  <div class="modal-overlay" id="edit-modal" role="dialog" aria-modal="true" aria-labelledby="edit-modal-title">
+    <div class="modal">
+      <div class="modal-header">
+        <h3 id="edit-modal-title">Edit Course</h3>
+        <button class="modal-close" id="edit-close" aria-label="Close">&times;</button>
+      </div>
+      <form id="edit-form" novalidate>
+        <div class="modal-body">
+          <div class="field">
+            <label for="edit-id">Course ID</label>
+            <input type="text" id="edit-id" readonly class="readonly-id" />
+          </div>
+          <div class="field">
+            <label for="edit-name">Course Name <span class="req">*</span></label>
+            <input type="text" id="edit-name" required />
+            <span class="field-error">Course name is required.</span>
+          </div>
+          <div class="field">
+            <label for="edit-description">Description <span class="req">*</span></label>
+            <textarea id="edit-description" rows="3" required></textarea>
+            <span class="field-error">Description is required.</span>
+          </div>
+          <div class="form-row-2">
+            <div class="field">
+              <label for="edit-target_date">Target Date <span class="req">*</span></label>
+              <input type="date" id="edit-target_date" required />
+              <span class="field-error">Target date is required.</span>
+            </div>
+            <div class="field">
+              <label for="edit-status">Status <span class="req">*</span></label>
+              <select id="edit-status" required>
+                <option value="Not Started">Not Started</option>
+                <option value="In Progress">In Progress</option>
+                <option value="Completed">Completed</option>
+              </select>
+              <span class="field-error">Status is required.</span>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-ghost" id="edit-cancel">Cancel</button>
+          <button type="submit" class="btn btn-accent" id="edit-save">
+            <span id="edit-save-text">Save Changes</span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Delete Confirm Modal -->
+  <div class="modal-overlay" id="delete-modal" role="dialog" aria-modal="true">
+    <div class="modal" style="max-width: 420px;">
+      <div class="modal-header">
+        <h3>Delete Course</h3>
+        <button class="modal-close" id="delete-close" aria-label="Close">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p>Are you sure you want to delete <strong id="delete-name"></strong>?</p>
+        <p style="color: var(--text-muted); font-size: 0.875rem;">This action cannot be undone.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-ghost" id="delete-cancel">Cancel</button>
+        <button type="button" class="btn btn-danger" id="delete-confirm">
+          <span id="delete-confirm-text">Delete</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast container -->
+  <div id="toast-container" aria-live="polite"></div>
+
+  <script>
+    (function () {
+      "use strict";
+
+      const API_BASE = "https://khantaashifa-5000.theianext-0-labs-prod-misc-tools-us-east-0.proxy.cognitiveclass.ai/api/courses";
+
+      // ---- DOM refs ----
+      const addForm = document.getElementById("add-form");
+      const addSubmitBtn = document.getElementById("add-submit");
+      const addSubmitText = document.getElementById("add-submit-text");
+      const refreshBtn = document.getElementById("refresh-btn");
+      const listContainer = document.getElementById("course-list-container");
+
+      const editModal = document.getElementById("edit-modal");
+      const editForm = document.getElementById("edit-form");
+      const editId = document.getElementById("edit-id");
+      const editName = document.getElementById("edit-name");
+      const editDescription = document.getElementById("edit-description");
+      const editTargetDate = document.getElementById("edit-target_date");
+      const editStatus = document.getElementById("edit-status");
+      const editSaveBtn = document.getElementById("edit-save");
+      const editSaveText = document.getElementById("edit-save-text");
+
+      const deleteModal = document.getElementById("delete-modal");
+      const deleteName = document.getElementById("delete-name");
+      const deleteConfirmBtn = document.getElementById("delete-confirm");
+      const deleteConfirmText = document.getElementById("delete-confirm-text");
+
+      let pendingDeleteId = null;
+
+      // ---- Utilities ----
+      function escapeHtml(str) {
+        if (str === null || str === undefined) return "";
+        return String(str)
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;")
+          .replace(/"/g, "&quot;")
+          .replace(/'/g, "&#39;");
+      }
+
+      function formatDate(value) {
+        if (!value) return "&mdash;";
+        const d = new Date(value);
+        if (isNaN(d.getTime())) return escapeHtml(value);
+        return d.toLocaleDateString(undefined, { year: "numeric", month: "short", day: "numeric" });
+      }
+
+      function formatDateTime(value) {
+        if (!value) return "&mdash;";
+        const d = new Date(value);
+        if (isNaN(d.getTime())) return escapeHtml(value);
+        return d.toLocaleString(undefined, {
+          year: "numeric", month: "short", day: "numeric",
+          hour: "2-digit", minute: "2-digit"
+        });
+      }
+
+      function statusKey(status) {
+        const s = (status || "").toLowerCase().replace(/\s+/g, "-");
+        if (s === "not-started") return "not-started";
+        if (s === "in-progress") return "in-progress";
+        if (s === "completed") return "completed";
+        return "not-started";
+      }
+
+      // ---- Toasts ----
+      function showToast(message, type) {
+        type = type || "info";
+        const container = document.getElementById("toast-container");
+        const toast = document.createElement("div");
+        toast.className = "toast " + type;
+        toast.innerHTML =
+          '<span class="toast-msg"></span>' +
+          '<button class="toast-close" aria-label="Dismiss">&times;</button>';
+        toast.querySelector(".toast-msg").textContent = message;
+        const remove = function () {
+          toast.classList.add("removing");
+          setTimeout(function () { toast.remove(); }, 200);
+        };
+        toast.querySelector(".toast-close").addEventListener("click", remove);
+        container.appendChild(toast);
+        setTimeout(remove, 4000);
+      }
+
+      // ---- Loading ----
+      function showLoading(message) {
+        listContainer.innerHTML =
+          '<div class="loading-overlay">' +
+          '<div class="spinner"></div>' +
+          '<span>' + escapeHtml(message || "Loading courses...") + '</span>' +
+          '</div>';
+      }
+
+      function setButtonLoading(btn, textSpan, loading, loadingText) {
+        if (loading) {
+          btn.disabled = true;
+          textSpan.dataset.original = textSpan.textContent;
+          textSpan.innerHTML = '<span class="spinner"></span> ' + escapeHtml(loadingText || "Loading...");
+        } else {
+          btn.disabled = false;
+          if (textSpan.dataset.original) textSpan.textContent = textSpan.dataset.original;
+        }
+      }
+
+      // ---- Validation ----
+      function validateField(fieldEl) {
+        const input = fieldEl.querySelector("input, textarea, select");
+        const value = (input.value || "").trim();
+        if (!value) {
+          fieldEl.classList.add("invalid");
+          return false;
+        }
+        fieldEl.classList.remove("invalid");
+        return true;
+      }
+
+      function clearFieldErrors(form) {
+        form.querySelectorAll(".field.invalid").forEach(function (f) { f.classList.remove("invalid"); });
+      }
+
+      function validateForm(form) {
+        clearFieldErrors(form);
+        let valid = true;
+        form.querySelectorAll(".field").forEach(function (field) {
+          const input = field.querySelector("input, textarea, select");
+          if (!input) return;
+          if (input.hasAttribute("required") || input.required) {
+            if (!validateField(field)) valid = false;
+          }
+        });
+        return valid;
+      }
+
+      // ---- API ----
+      async function apiRequest(method, path, body) {
+        const options = { method: method, headers: {} };
+        if (body !== undefined) {
+          options.headers["Content-Type"] = "application/json";
+          options.body = JSON.stringify(body);
+        }
+        const response = await fetch(API_BASE + path, options);
+        if (!response.ok) {
+          let detail = response.status + " " + response.statusText;
+          try {
+            const errData = await response.json();
+            if (errData && (errData.message || errData.error)) {
+              detail = errData.message || errData.error;
+            }
+          } catch (e) { /* not json */ }
+          const error = new Error(detail);
+          error.status = response.status;
+          throw error;
+        }
+        if (response.status === 204) return null;
+        return response.json();
+      }
+
+      // ---- Load & Render ----
+      async function loadCourses() {
+        showLoading("Loading courses...");
+        try {
+          const courses = await apiRequest("GET", "");
+          if (!Array.isArray(courses)) {
+            throw new Error("Unexpected response format from server.");
+          }
+          renderCourses(courses);
+          updateStats(courses);
+        } catch (err) {
+          renderError(err);
+          updateStats([]);
+        }
+      }
+
+      function updateStats(courses) {
+        const total = courses.length;
+        const inProgress = courses.filter(function (c) {
+          return (c.status || "").toLowerCase() === "in progress";
+        }).length;
+        const completed = courses.filter(function (c) {
+          return (c.status || "").toLowerCase() === "completed";
+        }).length;
+        document.getElementById("stat-total").textContent = total;
+        document.getElementById("stat-progress").textContent = inProgress;
+        document.getElementById("stat-completed").textContent = completed;
+      }
+
+      function renderError(err) {
+        const msg = err && err.message ? err.message : "Unable to reach the server.";
+        listContainer.innerHTML =
+          '<div class="empty-state">' +
+          '<div class="empty-icon">&#9888;</div>' +
+          '<h3>Could not load courses</h3>' +
+          '<p>' + escapeHtml(msg) + '</p>' +
+          '<p style="margin-top:0.5rem;font-size:0.8rem;">Make sure the Flask API is running at <code>http://localhost:5000</code>.</p>' +
+          '</div>';
+      }
+
+      function renderEmpty() {
+        listContainer.innerHTML =
+          '<div class="empty-state">' +
+          '<div class="empty-icon">&#128218;</div>' +
+          '<h3>No courses yet</h3>' +
+          '<p>Add your first course using the form above to get started.</p>' +
+          '</div>';
+      }
+
+      function renderCourses(courses) {
+        if (!courses.length) { renderEmpty(); return; }
+
+        let html =
+          '<div class="table-wrap"><table>' +
+          '<thead><tr>' +
+          '<th>ID</th>' +
+          '<th>Course Name</th>' +
+          '<th>Description</th>' +
+          '<th>Target Date</th>' +
+          '<th>Status</th>' +
+          '<th>Created At</th>' +
+          '<th>Actions</th>' +
+          '</tr></thead><tbody>';
+
+        courses.forEach(function (course) {
+          const id = course.id;
+          const key = statusKey(course.status);
+          html += '<tr data-id="' + escapeHtml(id) + '">' +
+            '<td class="cell-id">#' + escapeHtml(id) + '</td>' +
+            '<td class="cell-name">' + escapeHtml(course.name) + '</td>' +
+            '<td class="cell-desc">' + escapeHtml(course.description) + '</td>' +
+            '<td class="cell-date">' + formatDate(course.target_date) + '</td>' +
+            '<td><span class="badge ' + key + '">' + escapeHtml(course.status) + '</span></td>' +
+            '<td class="cell-created">' + formatDateTime(course.created_at) + '</td>' +
+            '<td><div class="actions">' +
+              '<button class="btn btn-accent btn-sm js-edit" data-id="' + escapeHtml(id) + '">Edit</button>' +
+              '<button class="btn btn-danger btn-sm js-delete" data-id="' + escapeHtml(id) + '" data-name="' + escapeHtml(course.name) + '">Delete</button>' +
+            '</div></td>' +
+            '</tr>';
+        });
+
+        html += '</tbody></table></div>';
+        listContainer.innerHTML = html;
+      }
+
+      // ---- Add ----
+      addForm.addEventListener("submit", async function (e) {
+        e.preventDefault();
+        if (!validateForm(addForm)) {
+          showToast("Please fill in all required fields.", "error");
+          return;
+        }
+        const payload = {
+          name: addForm.name.value.trim(),
+          description: addForm.description.value.trim(),
+          target_date: addForm.target_date.value,
+          status: addForm.status.value
+        };
+        setButtonLoading(addSubmitBtn, addSubmitText, true, "Adding...");
+        try {
+          await apiRequest("POST", "", payload);
+          addForm.reset();
+          showToast("Course added successfully.", "success");
+          await loadCourses();
+        } catch (err) {
+          showToast("Failed to add course: " + (err.message || "Unknown error"), "error");
+        } finally {
+          setButtonLoading(addSubmitBtn, addSubmitText, false);
+        }
+      });
+
+      // ---- Edit ----
+      function openEditModal(course) {
+        editId.value = course.id;
+        editName.value = course.name || "";
+        editDescription.value = course.description || "";
+        editTargetDate.value = course.target_date || "";
+        editStatus.value = course.status || "Not Started";
+        clearFieldErrors(editForm);
+        editModal.classList.add("active");
+        setTimeout(function () { editName.focus(); }, 50);
+      }
+
+      function closeEditModal() {
+        editModal.classList.remove("active");
+      }
+
+      async function fetchCourse(id) {
+        return await apiRequest("GET", "/" + encodeURIComponent(id));
+      }
+
+      document.addEventListener("click", async function (e) {
+        const editBtn = e.target.closest(".js-edit");
+        if (editBtn) {
+          const id = editBtn.getAttribute("data-id");
+          editBtn.disabled = true;
+          const original = editBtn.textContent;
+          editBtn.innerHTML = '<span class="spinner spinner-dark"></span>';
+          try {
+            const course = await fetchCourse(id);
+            openEditModal(course);
+          } catch (err) {
+            showToast("Failed to load course: " + (err.message || "Unknown error"), "error");
+          } finally {
+            editBtn.disabled = false;
+            editBtn.textContent = original;
+          }
+          return;
+        }
+
+        const deleteBtn = e.target.closest(".js-delete");
+        if (deleteBtn) {
+          pendingDeleteId = deleteBtn.getAttribute("data-id");
+          deleteName.textContent = deleteBtn.getAttribute("data-name") || ("course #" + pendingDeleteId);
+          deleteModal.classList.add("active");
+          return;
+        }
+      });
+
+      editForm.addEventListener("submit", async function (e) {
+        e.preventDefault();
+        if (!validateForm(editForm)) {
+          showToast("Please fill in all required fields.", "error");
+          return;
+        }
+        const id = editId.value;
+        const payload = {
+          name: editName.value.trim(),
+          description: editDescription.value.trim(),
+          target_date: editTargetDate.value,
+          status: editStatus.value
+        };
+        setButtonLoading(editSaveBtn, editSaveText, true, "Saving...");
+        try {
+          await apiRequest("PUT", "/" + encodeURIComponent(id), payload);
+          closeEditModal();
+          showToast("Course updated successfully.", "success");
+          await loadCourses();
+        } catch (err) {
+          showToast("Failed to update course: " + (err.message || "Unknown error"), "error");
+        } finally {
+          setButtonLoading(editSaveBtn, editSaveText, false);
+        }
+      });
+
+      document.getElementById("edit-close").addEventListener("click", closeEditModal);
+      document.getElementById("edit-cancel").addEventListener("click", closeEditModal);
+      editModal.addEventListener("click", function (e) {
+        if (e.target === editModal) closeEditModal();
+      });
+
+      // ---- Delete ----
+      deleteConfirmBtn.addEventListener("click", async function () {
+        if (pendingDeleteId === null) return;
+        const id = pendingDeleteId;
+        setButtonLoading(deleteConfirmBtn, deleteConfirmText, true, "Deleting...");
+        try {
+          await apiRequest("DELETE", "/" + encodeURIComponent(id));
+          deleteModal.classList.remove("active");
+          pendingDeleteId = null;
+          showToast("Course deleted successfully.", "success");
+          await loadCourses();
+        } catch (err) {
+          showToast("Failed to delete course: " + (err.message || "Unknown error"), "error");
+        } finally {
+          setButtonLoading(deleteConfirmBtn, deleteConfirmText, false);
+        }
+      });
+
+      document.getElementById("delete-close").addEventListener("click", function () {
+        deleteModal.classList.remove("active");
+        pendingDeleteId = null;
+      });
+      document.getElementById("delete-cancel").addEventListener("click", function () {
+        deleteModal.classList.remove("active");
+        pendingDeleteId = null;
+      });
+      deleteModal.addEventListener("click", function (e) {
+        if (e.target === deleteModal) {
+          deleteModal.classList.remove("active");
+          pendingDeleteId = null;
+        }
+      });
+
+      // ---- Refresh ----
+      refreshBtn.addEventListener("click", function () {
+        loadCourses();
+        showToast("Course list refreshed.", "info");
+      });
+
+      // ---- Keyboard: ESC closes modals ----
+      document.addEventListener("keydown", function (e) {
+        if (e.key === "Escape") {
+          if (editModal.classList.contains("active")) closeEditModal();
+          if (deleteModal.classList.contains("active")) {
+            deleteModal.classList.remove("active");
+            pendingDeleteId = null;
+          }
+        }
+      });
+
+      // ---- Init ----
+      loadCourses();
+    })();
+  </script>
+</body>
+</html>
